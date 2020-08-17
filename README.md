@@ -10,7 +10,7 @@ sudo chmod 600 post.html
 
 sudo chmod +X post.cgi
 
-![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/1.png)
+![](./image/1.png)
 
 
 
