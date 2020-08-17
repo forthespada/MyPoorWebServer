@@ -1,0 +1,40 @@
+<html>
+	<head>
+	<link rel="icon" href="data:;base64,=">
+		<title>注册信息</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<form action="post.cgi" method="POST">
+			账号：<input type="text" name="user" value="" size="10" maxlength="5">
+			<br>
+			<br>
+			密码：<input type="password" value="" name="password" size="10">
+			<br>
+			<br>
+			爱好：<input type="checkbox" name="tiyu" checked="checked">体育<input type="checkbox" name="singing">唱歌
+			<br>
+			<br>
+			性别：<input type="radio" name="sex" checked="checked">男<input type="radio" name="sex">女
+			<br>
+			<br>
+			自我介绍：<br>
+			<textarea cols="35" rows="10" name="introduction">
+				
+			</textarea>
+			<br>
+			<br>
+			地址：
+			<select name="address">
+				<option value="beijing">北京</option>
+				<option value="sichuang">四川</option>
+				<option value="shanghai">上海</option>
+				<option value="wuhan">武汉</option>
+			</select>
+			<br>
+			<br>
+			<input type="submit" value="提交">
+			<input type="reset" value="重置">
+		</form>
+	</body>
+</html>
