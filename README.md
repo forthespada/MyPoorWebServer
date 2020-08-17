@@ -10,7 +10,7 @@ sudo chmod 600 post.html
 
 sudo chmod +X post.cgi
 
-![](./image/1.png)
+![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/1.png)
 
 
 
@@ -28,19 +28,19 @@ sudo chmod +X post.cgi
 
 #### 3、整体过程图
 
-![](./image/2.png)
+![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/2.png)
 
-![](./image/3.png)
+![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/3.png)
 
 
 
-![](./image/4.png)
+![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/4.png)
 
-![](./image/5.png)
+![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/5.png)
 
 #### 4、整体框架图
 
-![](./image/myhttp.png)
+![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/myhttp.png)
 
 #### 5、参考
 
