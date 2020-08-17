@@ -32,8 +32,6 @@ sudo chmod +X post.cgi
 
 ![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/3.png)
 
-
-
 ![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/4.png)
 
 ![](https://github.com/forthespada/MyPoorWebServer/blob/master/image/5.png)
