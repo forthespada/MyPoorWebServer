@@ -38,7 +38,11 @@ sudo chmod +X post.cgi
 
 ![](./image/5.png)
 
-#### 4、参考
+#### 4、整体框架图
+
+![](./image/myhttp.png)
+
+#### 5、参考
 
 非常感谢
 
