@@ -54,7 +54,7 @@ void *accept_request(void* from_client)
 	j = 0;
 	 while (!ISspace(buf[j]) && (i < sizeof(method) - 1))
 	 {
-		 //提取其中的请求方式是GET还是POST
+		 //提取其中的请求方式
 		  method[i] = buf[j];
 		  i++; 
 		  j++;
@@ -82,7 +82,7 @@ void *accept_request(void* from_client)
 	url[i] = '\0';
 
 
-	//如果是GET请求，url可能会带有?,有查询参数
+	//GET请求url可能会带有?,有查询参数
 	 if (strcasecmp(method, "GET") == 0)
 	 {
 		 
@@ -96,7 +96,7 @@ void *accept_request(void* from_client)
 			   cgi = 1;
 			   *query_string = '\0';
 			   query_string++;
-		  }//这里感觉可以删除掉啊，好像没什么用
+		  }
 
 
 		 }
@@ -134,7 +134,6 @@ void *accept_request(void* from_client)
 		  //S_IXGRP:用户组具可执行权限
 		  //S_IXOTH:其他用户具可读取权限  
 			cgi = 1;
-	  //这一点感觉也没什么用啊
 
 	  if (!cgi)
 
@@ -230,7 +229,7 @@ void execute_cgi(int client, const char *path,
 		 while ((numchars > 0) && strcmp("\n", buf))
 		 {
 			 numchars = get_line(client, buf, sizeof(buf));
-		 }//这里感觉也可以不要
+		 }
 	 else    
 	 {
 
@@ -342,13 +341,13 @@ int get_line(int sock, char *buf, int size)
 	 {
 		  n = recv(sock, &c, 1, 0);
 
-		  if (n > 0) // 读到数据了
+		  if (n > 0) 
 		  {
-			   if (c == '\r')//判断是不是读到末尾 也就是 \r \n了
+			   if (c == '\r')
 			   {
 
-				n = recv(sock, &c, 1, MSG_PEEK);// 读来看看，并没有从缓冲区把数据读出来
-				if ((n > 0) && (c == '\n'))//有的好像是 \r\n 不管了，我们只认为\r\n就到达末尾了
+				n = recv(sock, &c, 1, MSG_PEEK);
+				if ((n > 0) && (c == '\n'))
 				recv(sock, &c, 1, 0);
 				else
 				 c = '\n';
@@ -416,8 +415,8 @@ void serve_file(int client, const char *filename)
 	 int numchars = 1;
 	 char buf[1024];
 	 buf[0] = 'A'; 
-	 buf[1] = '\0';//这个赋值不清楚是干什么的
-	 while ((numchars > 0) && strcmp("\n", buf)) //将HTTP请求头读取并丢弃
+	 buf[1] = '\0';
+	 while ((numchars > 0) && strcmp("\n", buf)) 
 	 {
 		 numchars = get_line(client, buf, sizeof(buf));
 	 }
@@ -425,25 +424,22 @@ void serve_file(int client, const char *filename)
 	 //打开文件
 	 resource = fopen(filename, "r");
 	 if (resource == NULL)
-	 //如果文件不存在，则返回not_found
 	  not_found(client);
 	 else
 	 {
-	 //添加HTTP头
 	  headers(client, filename);
-	 //并发送文件内容
 	  cat(client, resource);
 	 }
 	 fclose(resource);//关闭文件句柄
 }
 
 //启动服务端
-int startup(u_short *port) //初始化 httpd 服务，包括建立套接字，绑定端口，进行监听等。
+int startup(u_short *port) 
 {
 	 int httpd = 0,option;
 	 struct sockaddr_in name;
 	//设置http socket
-	 httpd = socket(PF_INET, SOCK_STREAM, 0);//创建一个套接字，采用TCP流进行连接
+	 httpd = socket(PF_INET, SOCK_STREAM, 0);
 	 if (httpd == -1)
 		error_die("socket");//连接失败
 	
@@ -454,10 +450,10 @@ int startup(u_short *port) //初始化 httpd 服务，包括建立套接字，�
 	
 	
 	 memset(&name, 0, sizeof(name));
-	 name.sin_family = AF_INET;//地址族
-	 name.sin_port = htons(*port);//16位TCP端口号
-	 name.sin_addr.s_addr = htonl(INADDR_ANY);//32位IP地址
-	 //绑定端口
+	 name.sin_family = AF_INET;
+	 name.sin_port = htons(*port);
+	 name.sin_addr.s_addr = htonl(INADDR_ANY);
+
 	 if (bind(httpd, (struct sockaddr *)&name, sizeof(name)) < 0)
 	  error_die("bind");//绑定失败
 	 if (*port == 0)  /*动态分配一个端口 */
@@ -467,7 +463,7 @@ int startup(u_short *port) //初始化 httpd 服务，包括建立套接字，�
 	   error_die("getsockname");
 	  *port = ntohs(name.sin_port);
 	 }
-	 //监听连接
+
 	 if (listen(httpd, 5) < 0)
 	  error_die("listen");
 	 return(httpd);
@@ -510,10 +506,9 @@ int main(void)
  
 	 printf("http server_sock is %d\n", server_sock);
 	 printf("http running on port %d\n", port);
-	 //采用多线程处理HTTP请求
 	 while (1)
 	 {
-		 //通过accept接受客户端连接,等待socket建立连接，采用的是阻塞方式
+
 		  client_sock = accept(server_sock,
 							   (struct sockaddr *)&client_name,
 							   &client_name_len);
@@ -521,8 +516,8 @@ int main(void)
 		  printf("New connection....  ip: %s , port: %d\n",inet_ntoa(client_name.sin_addr),ntohs(client_name.sin_port));
 		  if (client_sock == -1)
 				error_die("accept");
-		 //启动线程处理新的连接 
-		 if (pthread_create(&newthread , NULL, accept_request, (void*)&client_sock) != 0)//创建新线程
+
+		 if (pthread_create(&newthread , NULL, accept_request, (void*)&client_sock) != 0)
 		   perror("pthread_create");
 
 	 }
