@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
+
 #define ISspace(x) isspace((int)(x))
 
 
@@ -383,10 +384,10 @@ void headers(int client, const char *filename)
 }
 
 
+//返回404错误页面，组装信息
 void not_found(int client)
 {
 	 char buf[1024];
-	 //返回404
 	 sprintf(buf, "HTTP/1.0 404 NOT FOUND\r\n");
 	 send(client, buf, strlen(buf), 0);
 	 sprintf(buf, SERVER_STRING);
@@ -408,7 +409,7 @@ void not_found(int client)
 }
 
 
-//如果不是CGI文件，也就是静态文件，直接读取文件返回给请求的http客户端
+//如果不是CGI文件，也就是静态文件，直接读取文件返回给请求的http客户端即可
 void serve_file(int client, const char *filename)
 {
 	 FILE *resource = NULL;
@@ -492,7 +493,7 @@ void unimplemented(int client)
 	 send(client, buf, strlen(buf), 0);
 }
 
-/**********************************************************************/
+/*****************************主函数，也就是函数入口*****************************************/
 
 int main(void)
 {
